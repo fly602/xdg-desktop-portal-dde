@@ -30,5 +30,12 @@ uint AccessPortal::AccessDialog(
 {
     qCDebug(XdgDestkopDDEAccess) << "request for access dialog";
     AccessDialogClass dialog(app_id,parent_window,title,subtitle,body,options);
-    return dialog.exec();
+    switch (dialog.exec()) {
+        case DDialog::Rejected:
+            return 1;
+        case DDialog::Accepted:
+            return 0;
+        default:
+            return 2;
+    }
 }
